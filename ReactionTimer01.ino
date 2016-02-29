@@ -27,6 +27,9 @@
 // SPI  REST  D13
 //
 // BUTTON     D2 and ground
+//
+// SPEAKER between D11 and gnd (defined in pwm library)
+//
 /////////////////
 // uses Asynchronous PWM audio playback
 // http://highlowtech.org/?p=1963
@@ -86,7 +89,7 @@ void setup()   {
   Serial.begin(9600);
   //set button to input pullup, so we can just wire it to ground to trigger
   pinMode(button, INPUT_PULLUP);
-  //init SSD as per sample Adafruit code
+  //init OLED as per sample Adafruit code
   display.begin(SSD1306_SWITCHCAPVCC);
   // init done
 
@@ -128,7 +131,7 @@ void loop() {
   //start our timer
   starttime = millis();
 
-  //now wait for a button press - super tight loop here (could be done with interrupts, but this works fine
+  //now wait for a button press - super tight loop here (could be done with interrupts, but this works fine)
   while (digitalRead(button) == HIGH) {
   }
 
@@ -168,7 +171,7 @@ void loop() {
     for (int i = 0; i < 10; i++)
     {
 
-      // result in array is a valid button press, calculate stats
+      // if result in array is a valid button press, calculate stats
       if (results[i] > 0)
       {
         //count how many valid presses we have
@@ -233,7 +236,7 @@ void loop() {
   //redraw grid
   redraw();
 
-  // put last reaction time at top in big fint
+  // put last reaction time at top in big font
   display.setCursor(0, 0);
   display.setTextSize(2);
   display.print(mydelay);
